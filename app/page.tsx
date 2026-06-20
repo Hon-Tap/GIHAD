@@ -2,9 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -13,672 +11,454 @@ import {
   ShieldCheck,
   Droplets,
   BookOpen,
+  Scale,
   Users,
-  Globe2,
-  HeartHandshake,
-  Shield,
+  MapPin,
+  TrendingUp,
   Activity,
+  Award,
+  CircleDot,
+  Briefcase
 } from "lucide-react";
 
-const operationalCards = [
+const operationalSectors = [
   {
-    label: "AGRICULTURE",
-    title: "Food Security & Farming",
+    label: "Food Security & Livelihoods",
+    title: "General Food Assistance & Resilient Livelihoods",
     description:
-      "Empowering local farmers through sustainable agriculture, seed distribution, and climate-smart farming systems.",
+      "Deploying immediate General Food Assistance (GFA) alongside sustainable systems like Farmer Field Schools (FFS), tractors, and Cash-for-Work (C4W) frameworks to eliminate institutional hunger.",
     image: "/seedlingtraining.jpeg",
+    link: "/programs#fsl",
   },
   {
-    label: "HEALTH",
-    title: "Healthcare Outreach",
+    label: "Health & Nutrition",
+    title: "Clinical Outreach & Acute Malnutrition Management",
     description:
-      "Providing vaccination campaigns, emergency response systems, and life-saving healthcare support for communities.",
-    image: "/vaccination.jpeg",
+      "Operating mobile clinical units, implementing Expanded Programs for Immunization (EPI), and running targeted CMAM and stabilization centers for remote communities.",
+    image: "/vacination.jpeg",
+    link: "/programs#health",
   },
   {
-    label: "HUMANITARIAN",
-    title: "Emergency Response",
+    label: "WASH & Infrastructure",
+    title: "Safe Drinking Water & Sanitation Facilities",
     description:
-      "Supporting vulnerable communities through preparedness workshops, protection systems, and humanitarian coordination.",
+      "Rehabilitating critical clean water infrastructure, establishing localized sanitation networks, and running community-led hygiene campaigns to suppress waterborne disease profiles.",
     image: "/workshop.jpeg",
+    link: "/programs#wash",
   },
 ];
 
-const competencies = [
+const capabilities = [
   {
     icon: Sprout,
-    title: "Food Security",
-    description:
-      "Agricultural production systems, food assistance, and sustainable farming resilience initiatives.",
-  },
-  {
-    icon: HeartPulse,
-    title: "Healthcare Services",
-    description:
-      "Community healthcare systems, vaccination outreach, and emergency medical interventions.",
-  },
-  {
-    icon: Droplets,
-    title: "WASH Programs",
-    description:
-      "Water access, sanitation rehabilitation, and hygiene promotion within vulnerable communities.",
-  },
-  {
-    icon: BookOpen,
-    title: "Capacity Building",
-    description:
-      "Training local communities through education, awareness campaigns, and resilience development programs.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Protection Systems",
-    description:
-      "Protecting vulnerable populations through safeguarding and humanitarian inclusion systems.",
+    title: "Community Agriculture",
+    description: "Distributing modern agricultural assets including tractors, fishing kits, and crop harvesting machinery to build long-term food autonomy.",
   },
   {
     icon: Users,
-    title: "Community Recovery",
-    description:
-      "Restoring dignity and strengthening local resilience through integrated humanitarian support.",
+    title: "Economic Recovery",
+    description: "Fostering municipal market stability through structured Village Savings Loan Associations (VSLA) and entrepreneurship mentorship.",
+  },
+  {
+    icon: HeartPulse,
+    title: "Nutrition Interventions",
+    description: "Managing Moderate Acute Malnutrition (MAM) alongside intensive Stabilization Centers for severely vulnerable demographics.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Protection & Safeguarding",
+    description: "Defending the fundamental rights of IDPs, refugees, returnees, and persons with disabilities (PWD) through localized monitoring.",
+  },
+  {
+    icon: BookOpen,
+    title: "Education & Literacy",
+    description: "Empowering structural community recovery by improving institutional literacy and long-form vocational training tracks.",
+  },
+  {
+    icon: Scale,
+    title: "Climate Justice",
+    description: "Advocating for legal environmental frameworks and mobilizing grassroots adaptation strategies against intense climatic shifts.",
   },
 ];
 
-const stats = [
-  {
-    value: "6274",
-    label: "RRC Certificate",
-  },
-  {
-    value: "5+",
-    label: "Operational Regions",
-  },
-  {
-    value: "10K+",
-    label: "People Reached",
-  },
-  {
-    value: "24/7",
-    label: "Field Response",
-  },
+const activeStates = [
+  { name: "Upper Nile State", hub: "Sector Operations Hub" },
+  { name: "Jonglei State", hub: "Regional Field Office" },
+  { name: "Pibor Administrative Area", hub: "Special Emphasis Zone" },
+  { name: "Central Equatoria State", hub: "Juba HQ Coordination" },
+  { name: "Bahr El Ghazal Region", hub: "Field Deployment Cluster" },
+  { name: "Abyei Administrative Area", hub: "Northern Transition Zone" },
 ];
 
 export default function HomePage() {
-  const heroRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-
-  const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-
   return (
-    <main className="overflow-hidden bg-[#F7FBF8] text-zinc-900">
-
-      {/* ================= HERO ================= */}
-      <section
-        ref={heroRef}
-        className="relative flex min-h-screen items-center overflow-hidden bg-[#0D3B2A] pt-36 lg:pt-40"
-      >
-
-        {/* BACKGROUND */}
-        <motion.div
-          style={{ y: yBg }}
-          className="absolute inset-0"
-        >
-
-          <Image
-            src="/workshop.jpeg"
-            alt="GIHAD workshop"
-            fill
-            priority
-            className="object-cover"
-          />
-
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0B241B]/95 via-[#0B241B]/85 to-[#0B241B]/70" />
-
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(74,222,128,0.22),transparent_30%)]" />
-
-        </motion.div>
-
-        {/* FLOATING LIGHT */}
-        <div className="absolute left-[-10%] top-[-10%] h-[450px] w-[450px] rounded-full bg-emerald-400/10 blur-3xl" />
-
-        {/* WAVE */}
-        <div className="absolute bottom-0 left-0 right-0 z-20 overflow-hidden">
-          <svg
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-            className="h-[100px] w-full fill-[#F7FBF8]"
-          >
-            <path d="M0,32L120,42.7C240,53,480,75,720,74.7C960,75,1200,53,1320,42.7L1440,32L1440,120L0,120Z"></path>
-          </svg>
-        </div>
-
-        <div className="relative z-30 mx-auto grid max-w-7xl items-center gap-16 px-6 pb-32 lg:grid-cols-12 lg:px-12">
-
-          {/* LEFT */}
-          <motion.div
-            initial={{ opacity: 0, y: 35 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="lg:col-span-7"
-          >
-
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-300/20 bg-emerald-300/10 px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-emerald-200 backdrop-blur-xl">
-              <span className="h-2 w-2 rounded-full bg-emerald-300 animate-pulse" />
-              Official National NGO • South Sudan
-            </div>
-
-            <h1 className="mt-8 max-w-4xl text-5xl font-semibold leading-[1.02] tracking-tight text-white md:text-6xl xl:text-7xl">
-              Global Intervention
-              <br />
-              for Health &
-              <span className="italic text-emerald-300">
-                {" "}Agricultural
-              </span>
-              <br />
-              Development
-            </h1>
-
-            <p className="mt-8 max-w-2xl text-lg leading-8 text-emerald-50/90 md:text-xl">
-              “Nurturing Health & Agricultural Steps for life-saving and Zero Hunger.”
-            </p>
-
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-300">
-              GIHAD addresses critical health, livelihood, and food system
-              crises across South Sudan through healthcare outreach,
-              agricultural resilience, emergency response, and community
-              recovery systems.
-            </p>
-
-            <div className="mt-10 flex flex-wrap gap-4">
-
-              <Link
-                href="/programs"
-                className="group inline-flex items-center gap-2 rounded-full bg-emerald-400 px-8 py-4 text-sm font-bold text-[#052A1A] transition-all duration-300 hover:bg-emerald-300"
-              >
-                Explore Programs
-
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-
-              <Link
-                href="/contact"
-                className="rounded-full border border-white/10 bg-white/10 px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition hover:bg-white/15"
-              >
-                Contact Juba Office
-              </Link>
-
-            </div>
-
-            {/* STATS */}
-            <div className="mt-16 grid grid-cols-2 gap-5 md:grid-cols-4">
-
-              {stats.map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-[1.8rem] border border-white/10 bg-white/5 p-5 backdrop-blur-xl"
-                >
-
-                  <h3 className="text-3xl font-bold text-white">
-                    {item.value}
-                  </h3>
-
-                  <p className="mt-2 text-sm text-zinc-300">
-                    {item.label}
-                  </p>
-
-                </div>
-              ))}
-
-            </div>
-
-          </motion.div>
-
-          {/* RIGHT */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            className="relative lg:col-span-5"
-          >
-
-            <div className="grid grid-cols-2 gap-5">
-
-              {/* LARGE */}
-              <div className="col-span-2 overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/10 p-4 backdrop-blur-xl">
-
-                <div className="relative h-[320px] overflow-hidden rounded-[2rem]">
-
-                  <Image
-                    src="/vaccination.jpeg"
-                    alt="Vaccination outreach"
-                    fill
-                    className="object-cover"
-                  />
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-
-                  <div className="absolute bottom-6 left-6">
-
-                    <div className="rounded-full bg-emerald-400 px-4 py-2 text-xs font-bold uppercase tracking-wide text-[#062A1B]">
-                      Healthcare Outreach
-                    </div>
-
-                  </div>
-
-                </div>
-
+    <main className="relative min-h-screen bg-white text-zinc-900 antialiased selection:bg-emerald-100">
+      
+      {/* ================= HERO SECTION ================= */}
+      <section className="relative overflow-hidden bg-zinc-50 border-b border-zinc-200/80 pt-32 pb-20 lg:pt-44 lg:pb-28">
+        {/* Subtle Institutional Grid Patterns */}
+        <div className="absolute inset-0 z-0 opacity-[0.02] bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:3rem_3rem]" />
+        
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
+            
+            {/* HERO LEFT: TEXT & CALLS TO ACTION */}
+            <div className="lg:col-span-7 space-y-6 text-left">
+              <div className="inline-flex items-center gap-2 rounded-md border border-zinc-300 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-wider text-zinc-700 shadow-xs">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
+                </span>
+                Official National NGO • South Sudan
               </div>
 
-              {/* SMALL */}
-              <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 p-3 backdrop-blur-xl">
-
-                <div className="relative h-[190px] overflow-hidden rounded-[1.5rem]">
-
-                  <Image
-                    src="/seedlingtraining.jpeg"
-                    alt="Seedling training"
-                    fill
-                    className="object-cover"
-                  />
-
-                </div>
-
+              <div className="space-y-4">
+                <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 sm:text-5xl lg:text-6xl xl:text-6xl leading-[1.1]">
+                  Global Intervention for Health & Agricultural Development
+                </h1>
+                
+                <p className="text-lg font-medium text-emerald-800 bg-emerald-50/50 border-l-4 border-emerald-600 pl-4 py-1.5 max-w-2xl">
+                  “Nurturing Health & Agricultural Steps for life-saving and Zero Hunger.”
+                </p>
               </div>
 
-              <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 p-3 backdrop-blur-xl">
-
-                <div className="relative h-[190px] overflow-hidden rounded-[1.5rem]">
-
-                  <Image
-                    src="/pharmacy and fs.jpeg"
-                    alt="Pharmacy support"
-                    fill
-                    className="object-cover"
-                  />
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </motion.div>
-
-        </div>
-
-      </section>
-
-      {/* ================= CREDENTIAL BAR ================= */}
-      <section className="relative z-30 -mt-14 px-6 lg:px-12">
-
-        <div className="mx-auto grid max-w-7xl gap-6 rounded-[2.2rem] border border-emerald-100 bg-white p-8 shadow-[0_20px_60px_rgba(16,185,129,0.08)] md:grid-cols-4">
-
-          {[
-            {
-              title: "RRC Registration",
-              value: "Certificate No. 6274",
-            },
-            {
-              title: "Headquarters",
-              value: "Tongpiny, Juba",
-            },
-            {
-              title: "Operational Reach",
-              value: "Upper Nile & Beyond",
-            },
-            {
-              title: "Organization Type",
-              value: "National Humanitarian NGO",
-            },
-          ].map((item) => (
-            <div key={item.title}>
-
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-600">
-                {item.title}
+              <p className="max-w-xl text-base leading-relaxed text-zinc-600 md:text-lg">
+                GIHAD is a legally recognized South Sudanese national non-profit organization responding to systemic health, food asset, and livelihood deficits caused by structural conflict and accelerating climate anomalies.
               </p>
 
-              <h3 className="mt-3 text-lg font-semibold text-zinc-900">
-                {item.value}
-              </h3>
-
-            </div>
-          ))}
-
-        </div>
-
-      </section>
-
-      {/* ================= PROGRAMS ================= */}
-      <section className="py-32">
-
-        <div className="mx-auto max-w-7xl px-6 lg:px-12">
-
-          <div className="max-w-3xl">
-
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-700">
-              Operational Programs
-            </span>
-
-            <h2 className="mt-5 text-5xl font-semibold tracking-tight text-[#0D2B1D]">
-              Humanitarian Systems Designed For Recovery & Resilience.
-            </h2>
-
-          </div>
-
-          <div className="mt-20 grid gap-8 lg:grid-cols-3">
-
-            {operationalCards.map((card, index) => (
-              <motion.div
-                key={card.title}
-                initial={{ opacity: 0, y: 35 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.12 }}
-                viewport={{ once: true }}
-              >
-
-                <Link href="/programs">
-
-                  <div className="group overflow-hidden rounded-[2.3rem] border border-emerald-100 bg-white transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(16,185,129,0.12)]">
-
-                    {/* IMAGE */}
-                    <div className="relative h-[320px] overflow-hidden">
-
-                      <Image
-                        src={card.image}
-                        alt={card.title}
-                        fill
-                        className="object-cover transition duration-700 group-hover:scale-110"
-                      />
-
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
-
-                      <div className="absolute left-6 top-6 rounded-full bg-emerald-400 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#052A1A]">
-                        {card.label}
-                      </div>
-
-                    </div>
-
-                    {/* CONTENT */}
-                    <div className="p-8">
-
-                      <h3 className="text-3xl font-semibold tracking-tight text-[#0D2B1D]">
-                        {card.title}
-                      </h3>
-
-                      <p className="mt-5 leading-8 text-zinc-600">
-                        {card.description}
-                      </p>
-
-                      <div className="mt-8 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-emerald-700">
-
-                        <span>Explore Program</span>
-
-                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
+              <div className="flex flex-wrap gap-3 pt-2">
+                <Link
+                  href="/programs"
+                  className="inline-flex items-center gap-2 rounded-md bg-emerald-700 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-emerald-800 shadow-sm"
+                >
+                  View Operational Sectors
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 rounded-md border border-zinc-300 bg-white px-6 py-3.5 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-50"
+                >
+                  Contact Juba HQ
+                  <ArrowUpRight className="h-4 w-4 text-zinc-400" />
+                </Link>
+              </div>
+            </div>
 
-              </motion.div>
-            ))}
-
-          </div>
-
-        </div>
-
-      </section>
-
-      {/* ================= MISSION ================= */}
-      <section className="relative overflow-hidden bg-[#EAF8EF] py-32">
-
-        <div className="absolute right-0 top-0 h-[400px] w-[400px] rounded-full bg-emerald-300/20 blur-3xl" />
-
-        <div className="relative mx-auto grid max-w-7xl gap-20 px-6 lg:grid-cols-12 lg:px-12">
-
-          {/* LEFT */}
-          <div className="lg:col-span-5">
-
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-700">
-              Vision • Mission • Values
-            </span>
-
-            <h2 className="mt-5 text-5xl font-semibold leading-tight tracking-tight text-[#0D2B1D]">
-              Human dignity remains the foundation of every intervention we design.
-            </h2>
-
-            <div className="mt-10 overflow-hidden rounded-[2rem]">
-
-              <div className="relative h-[360px]">
-
+            {/* HERO RIGHT: UN-STYLE HERO IMAGE GRID */}
+            <div className="hidden lg:grid lg:col-span-5 grid-cols-12 gap-3 relative">
+              <div className="col-span-12 relative h-72 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-100 shadow-sm">
                 <Image
-                  src="/workshop.jpeg"
-                  alt="GIHAD workshop"
+                  src="/vacination.jpeg"
+                  alt="Vaccination deployment"
                   fill
+                  sizes="(max-w-lg) 100vw, 500px"
+                  className="object-cover"
+                  priority
+                />
+                <div className="absolute bottom-3 left-3 rounded bg-zinc-900/80 backdrop-blur-xs px-3 py-1 text-[11px] font-medium text-white tracking-wide">
+                  Healthcare Outreach Field Unit
+                </div>
+              </div>
+              
+              <div className="col-span-6 relative h-40 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-100 shadow-sm">
+                <Image
+                  src="/seedlingtraining.jpeg"
+                  alt="Agricultural tools training"
+                  fill
+                  sizes="250px"
                   className="object-cover"
                 />
-
               </div>
-
+              
+              <div className="col-span-6 relative h-40 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-100 shadow-sm">
+                <Image
+                  src="/workshop.jpeg"
+                  alt="Capacity development workshop"
+                  fill
+                  sizes="250px"
+                  className="object-cover"
+                />
+              </div>
             </div>
 
           </div>
+        </div>
+      </section>
 
-          {/* RIGHT */}
-          <div className="space-y-8 lg:col-span-7">
+      {/* ================= REGISTRATION AUTHORIZATION BAR ================= */}
+      {/* Reference UI Layout from image_2c72e2.png */}
+      <section className="relative z-20 -mt-6 px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl rounded-xl border border-zinc-200 bg-white p-6 shadow-xl shadow-zinc-200/40 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { title: "RRC Authorization", value: "Certificate No. 6274", icon: Award },
+            { title: "National Headquarters", value: "Tongpiny, Juba, South Sudan", icon: MapPin },
+            { title: "Operational Footprint", value: "Upper Nile & Major Regions", icon: CircleDot },
+            { title: "Institutional Status", value: "National Humanitarian NGO", icon: Briefcase },
+          ].map((item, i) => {
+            const BarIcon = item.icon;
+            return (
+              <div key={i} className="flex items-start gap-4 border-l border-zinc-200/80 pl-6 first:border-0 first:pl-0">
+                <div className="mt-1 hidden sm:block">
+                  <BarIcon className="h-5 w-5 text-zinc-400" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">
+                    {item.title}
+                  </span>
+                  <span className="mt-1 text-sm font-semibold text-zinc-900 tracking-tight">
+                    {item.value}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
 
+      {/* ================= OPERATIONAL PROGRAMS SECTION ================= */}
+      <section className="py-24 lg:py-28 bg-white">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          
+          <div className="max-w-3xl space-y-3">
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-700 block">
+              Core Intervention Frameworks
+            </span>
+            <h2 className="text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
+              Delivering cross-sector humanitarian aid and community-led resilience models.
+            </h2>
+          </div>
+
+          {/* UN Institutional Style Program Cards */}
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {operationalSectors.map((card, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col justify-between overflow-hidden rounded-lg border border-zinc-200 bg-white transition-all hover:shadow-md"
+              >
+                <div className="relative h-56 w-full overflow-hidden bg-zinc-100">
+                  <Image
+                    src={card.image}
+                    alt={card.title}
+                    fill
+                    sizes="(max-w-md) 100vw, 400px"
+                    className="object-cover"
+                  />
+                  <span className="absolute top-3 left-3 rounded bg-white/95 backdrop-blur-xs px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-zinc-800 border border-zinc-200 shadow-xs">
+                    {card.label}
+                  </span>
+                </div>
+                
+                <div className="flex flex-col flex-grow p-5 justify-between">
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-bold text-zinc-900 leading-snug">
+                      {card.title}
+                    </h3>
+                    <p className="text-xs leading-relaxed text-zinc-600">
+                      {card.description}
+                    </p>
+                  </div>
+                  
+                  <div className="mt-6 pt-4 border-t border-zinc-100">
+                    <Link 
+                      href={card.link} 
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 transition-colors uppercase tracking-wider"
+                    >
+                      Read Sector Strategy
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ================= CORE PRINCIPLES & GUIDING VALUES ================= */}
+      <section className="border-t border-b border-zinc-200 bg-zinc-50 py-24 lg:py-28">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 grid gap-12 lg:grid-cols-12 lg:items-start">
+          
+          {/* STICKY LEFT COLUMN */}
+          <div className="lg:col-span-5 lg:sticky lg:top-32 space-y-3">
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-700 block">
+              Core Core Humanitarian Commitments
+            </span>
+            <h2 className="text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
+              Principled, transparent, and community-driven logistics.
+            </h2>
+            <p className="text-sm text-zinc-600 leading-relaxed max-w-md">
+              GIHAD adheres to the international standards of neutrality, humanity, and total operational accountability to support returnees, IDPs, and marginalized rural populations.
+            </p>
+          </div>
+
+          {/* RIGHT COLUMN STACK */}
+          <div className="lg:col-span-7 space-y-3">
             {[
               {
-                icon: Globe2,
-                title: "Vision",
-                text: "A resilient South Sudan where vulnerable communities are empowered through sustainable healthcare, food security, and community recovery systems.",
+                title: "Humanity & Accountability",
+                text: "Addressing human suffering at its root. Every program is rigorously mapped, executed, and audited to guarantee resource alignment and full gender-based inclusion frameworks.",
               },
               {
-                icon: HeartHandshake,
-                title: "Mission",
-                text: "To strengthen communities through integrated humanitarian interventions rooted in health, agriculture, emergency response, and resilience.",
+                title: "Neutrality & Impartiality",
+                text: "Interventions are rendered exclusively based on objective vulnerability metrics. Assistance bypasses political, ideological, or ethnic distinctions to reach those in deepest distress.",
               },
               {
-                icon: Shield,
-                title: "Core Values",
-                text: "Compassion, accountability, inclusion, dignity, sustainability, and community-centered humanitarian leadership.",
+                title: "Durable Resilience & Sustainability",
+                text: "Transitioning communities from aid-dependency into self-sufficiency by embedding technological agriculture practices, economic savings mechanics, and community capacity ownership.",
               },
-            ].map((item) => {
-              const Icon = item.icon;
-
-              return (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="rounded-[2rem] border border-emerald-100 bg-white p-8 shadow-sm"
-                >
-
-                  <div className="flex flex-col gap-6 md:flex-row md:items-start">
-
-                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-100">
-                      <Icon className="h-7 w-7 text-emerald-700" />
-                    </div>
-
-                    <div>
-
-                      <h3 className="text-3xl font-semibold text-[#0D2B1D]">
-                        {item.title}
-                      </h3>
-
-                      <p className="mt-4 text-lg leading-8 text-zinc-600">
-                        {item.text}
-                      </p>
-
-                    </div>
-
-                  </div>
-
-                </motion.div>
-              );
-            })}
-
-          </div>
-
-        </div>
-
-      </section>
-
-      {/* ================= CORE COMPETENCIES ================= */}
-      <section className="py-32">
-
-        <div className="mx-auto max-w-7xl px-6 lg:px-12">
-
-          <div className="max-w-3xl">
-
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-700">
-              Core Competencies
-            </span>
-
-            <h2 className="mt-5 text-5xl font-semibold tracking-tight text-[#0D2B1D]">
-              Integrated Sectors Supporting Community Survival.
-            </h2>
-
-          </div>
-
-          <div className="mt-20 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-
-            {competencies.map((item, index) => {
-              const Icon = item.icon;
-
-              return (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 35 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.08 }}
-                  viewport={{ once: true }}
-                  className="group rounded-[2rem] border border-emerald-100 bg-white p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(16,185,129,0.12)]"
-                >
-
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 transition-all duration-500 group-hover:bg-emerald-500">
-
-                    <Icon className="h-6 w-6 text-emerald-700 transition-all duration-500 group-hover:text-white" />
-
-                  </div>
-
-                  <h3 className="mt-8 text-2xl font-semibold tracking-tight text-[#0D2B1D]">
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="rounded-lg border border-zinc-200 bg-white p-5 shadow-xs"
+              >
+                <div className="space-y-1">
+                  <h3 className="text-base font-bold text-zinc-900">
                     {item.title}
                   </h3>
-
-                  <p className="mt-5 leading-8 text-zinc-600">
-                    {item.description}
+                  <p className="text-xs leading-relaxed text-zinc-600">
+                    {item.text}
                   </p>
-
-                </motion.div>
-              );
-            })}
-
+                </div>
+              </div>
+            ))}
           </div>
 
         </div>
-
       </section>
 
-      {/* ================= IMPACT ================= */}
-      <section className="relative overflow-hidden bg-[#0D3B2A] py-32 text-white">
+      {/* ================= EXTRA FUNCTIONAL FIELD CAPABILITIES GRID ================= */}
+      <section className="py-24 lg:py-28 bg-white">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          
+          <div className="max-w-2xl mx-auto text-center space-y-2">
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-700 block">
+              Execution Capabilities
+            </span>
+            <h2 className="text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
+              Cross-Functional Capabilities
+            </h2>
+            <p className="text-xs text-zinc-500 max-w-md mx-auto">
+              Our organizational organogram and specialized field clusters ensure technical execution even in logistically constrained environments.
+            </p>
+          </div>
 
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(74,222,128,0.15),transparent_30%)]" />
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {capabilities.map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={idx}
+                  className="rounded-lg border border-zinc-200/80 p-5 bg-zinc-50/40 transition-colors hover:bg-white"
+                >
+                  <div className="flex h-9 w-9 items-center justify-center rounded bg-zinc-900 text-white shadow-xs">
+                    <Icon className="h-4 w-4" />
+                  </div>
+                  <h3 className="mt-3 text-sm font-bold text-zinc-900">
+                    {item.title}
+                  </h3>
+                  <p className="mt-1 text-xs leading-relaxed text-zinc-600">
+                    {item.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
+        </div>
+      </section>
 
-          <div className="grid gap-12 lg:grid-cols-12">
-
-            {/* LEFT */}
-            <div className="lg:col-span-7">
-
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">
-                Field Operations
-              </span>
-
-              <h2 className="mt-5 text-5xl font-semibold tracking-tight">
-                Delivering humanitarian support directly within vulnerable communities.
-              </h2>
-
-              <p className="mt-8 max-w-3xl text-lg leading-8 text-zinc-300">
-                GIHAD continues to operate across Upper Nile, Jonglei,
-                Central Equatoria, Bahr El Ghazal, Abyei, and Pibor
-                Administrative Area — supporting communities affected by
-                conflict, flooding, disease outbreaks, and food insecurity.
+      {/* ================= GEOGRAPHIC IMPACT & FOOTPRINT SECTION ================= */}
+      {/* Custom Designed with Dark Institutional Accent Palette from image_2c72c1.png */}
+      <section className="relative overflow-hidden bg-[#051C12] py-24 lg:py-28 text-white border-t border-zinc-950">
+        
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
+            
+            {/* LEFT: MAP HUB LABELS */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="space-y-2">
+                <span className="text-xs font-bold uppercase tracking-widest text-emerald-400 block">
+                  Active Regional Footprint
+                </span>
+                <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl leading-tight">
+                  Reaching isolated frontline geographic corridors across South Sudan.
+                </h2>
+              </div>
+              
+              <p className="max-w-xl text-xs leading-relaxed text-emerald-100/70">
+                GIHAD orchestrates response assets inside states affected by intense climatic shifts, displacement, and structural food security shortfalls. Field logistics are deployed utilizing community networks across key administrative units.
               </p>
 
-              <div className="mt-10 grid gap-5 sm:grid-cols-2">
-
-                {[
-                  "Upper Nile Region",
-                  "Jonglei State",
-                  "Central Equatoria",
-                  "Pibor Administrative Area",
-                ].map((item) => (
+              {/* STATES CHIPS */}
+              <div className="grid gap-3 sm:grid-cols-2 max-w-2xl">
+                {activeStates.map((state, i) => (
                   <div
-                    key={item}
-                    className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl"
+                    key={i}
+                    className="flex items-center gap-3 rounded-md border border-white/10 bg-white/[0.03] px-3.5 py-3"
                   >
-
-                    <div className="h-3 w-3 rounded-full bg-emerald-300" />
-
-                    <span className="text-zinc-200">
-                      {item}
-                    </span>
-
+                    <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-emerald-500/10 border border-emerald-500/20">
+                      <MapPin className="h-3.5 w-3.5 text-emerald-400" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs font-bold text-zinc-100">{state.name}</span>
+                      <span className="text-[10px] text-zinc-400">{state.hub}</span>
+                    </div>
                   </div>
                 ))}
-
               </div>
-
             </div>
 
-            {/* RIGHT */}
-            <div className="grid gap-6 lg:col-span-5">
-
-              <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 p-4 backdrop-blur-xl">
-
-                <div className="relative h-[260px] overflow-hidden rounded-[1.6rem]">
-
-                  <Image
-                    src="/vaccination.jpeg"
-                    alt="Vaccination outreach"
-                    fill
-                    className="object-cover"
-                  />
-
-                </div>
-
+            {/* RIGHT: DEPLOYMENT GRAPHICS */}
+            <div className="lg:col-span-5 flex flex-col gap-3">
+              <div className="relative h-56 rounded-lg overflow-hidden border border-white/10 bg-white/[0.02]">
+                <Image
+                  src="/vacination.jpeg"
+                  alt="Immunization deployment overview"
+                  fill
+                  sizes="(max-w-md) 100vw, 450px"
+                  className="object-cover brightness-95 filter"
+                />
               </div>
-
-              <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 p-4 backdrop-blur-xl">
-
-                <div className="relative h-[260px] overflow-hidden rounded-[1.6rem]">
-
-                  <Image
-                    src="/pharmacy and fs.jpeg"
-                    alt="Healthcare outreach"
-                    fill
-                    className="object-cover"
-                  />
-
-                </div>
-
+              <div className="relative h-36 rounded-lg overflow-hidden border border-white/10 bg-white/[0.02]">
+                <Image
+                  src="/seedlingtraining.jpeg"
+                  alt="Logistics asset staging"
+                  fill
+                  sizes="(max-w-md) 100vw, 450px"
+                  className="object-cover opacity-90"
+                />
               </div>
-
             </div>
 
           </div>
 
-        </div>
+          {/* STATS STRIP: Emulates exact design tokens discovered in image_2c72c1.png */}
+          {/* <div className="mt-20 pt-10 border-t border-white/10 grid gap-6 grid-cols-2 lg:grid-cols-4">
+            {[
+              { value: "No. 6274", label: "OFFICIAL RRC REGISTRATION", icon: Award },
+              { value: "5+ States", label: "ACTIVE FIELD OPERATIONS", icon: MapPin },
+              { value: "10K+", label: "VULNERABLE LIVES IMPACTED", icon: TrendingUp },
+              { value: "24/7", label: "RAPID CRISIS DEPLOYMENT", icon: Activity },
+            ].map((stat, idx) => {
+              const StatIcon = stat.icon;
+              return (
+                <div key={idx} className="flex flex-col gap-1">
+                  <div className="flex items-center gap-2">
+                    <StatIcon className="h-4 w-4 text-emerald-400" />
+                    <span className="text-2xl font-black tracking-tight text-white lg:text-3xl">
+                      {stat.value}
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">
+                    {stat.label}
+                  </span>
+                </div>
+              );
+            })}
+          </div> */}
 
+        </div>
       </section>
 
     </main>

@@ -1,311 +1,260 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import {
   Mail,
   Phone,
   MapPin,
-  Globe2,
   ArrowRight,
   Send,
   Clock3,
+  ShieldCheck,
+  Eye
 } from "lucide-react";
+
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.215, 0.61, 0.355, 1] }
+  }
+};
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.05 }
+  }
+};
 
 export default function ContactPage() {
   return (
-    <main className="overflow-hidden bg-[#F6F3EE] text-zinc-900">
+    <main className="relative min-h-screen bg-[#FAF9F5] text-zinc-800 antialiased selection:bg-emerald-700/20 pb-32">
+      
+      {/* ================= HIGH-CONTRAST ACCESSIBLE HERO SECION ================= */}
+      <section className="relative overflow-hidden pt-40 pb-20 border-b border-zinc-200 bg-white">
+        {/* Subtle geometric structural grid texture inspired by image_be048c.png */}
+        <div className="absolute inset-0 z-0 opacity-[0.015] bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:3rem_3rem]" />
 
-      {/* ================= HERO ================= */}
-      <section className="relative overflow-hidden bg-[#081C15] pt-40 pb-44">
-
-        {/* ATMOSPHERIC GRADIENTS */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.14),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.04),transparent_35%)]" />
-
-        {/* GRID TEXTURE */}
-        <div className="absolute inset-0 opacity-[0.04] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:80px_80px]" />
-
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
-
-          <div className="grid items-center gap-20 lg:grid-cols-12">
-
-            {/* LEFT */}
+        <div className="mx-auto max-w-7xl px-6 lg:px-12 relative z-10">
+          <div className="grid items-start gap-16 lg:grid-cols-12">
+            
+            {/* LEFT COLUMN: HIGH READABILITY TEXT PANELS */}
             <motion.div
-              initial={{ opacity: 0, y: 35 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="lg:col-span-6"
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer}
+              className="lg:col-span-6 space-y-6"
             >
+              <motion.div variants={fadeInUp} className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 rounded-md border border-emerald-800/20 bg-emerald-50 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-emerald-900 font-mono">
+                  <Eye className="h-3.5 w-3.5 text-emerald-800" /> High-Contrast Accessibility Mode
+                </span>
+              </motion.div>
 
-              <div className="inline-flex items-center rounded-full border border-emerald-500/20 bg-emerald-500/10 px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-emerald-300 backdrop-blur-xl">
-                Humanitarian Coordination
-              </div>
+              <motion.h1
+                variants={fadeInUp}
+                className="text-4xl font-black tracking-tighter sm:text-5xl lg:text-6xl leading-[1.05] text-[#062F1D]"
+              >
+                Let’s Anchor Sustainable <br />
+                <span className="text-emerald-700">Transformations.</span>
+              </motion.h1>
 
-              <h1 className="mt-8 text-5xl font-serif leading-[1.02] tracking-tight text-white md:text-7xl">
-                Let’s Create Meaningful Humanitarian Impact Together.
-              </h1>
+              <motion.p
+                variants={fadeInUp}
+                className="max-w-xl text-base leading-relaxed text-zinc-600 font-medium"
+              >
+                Whether you are registering a programmatic donation intent, coordinating cluster deployment, or establishing institutional agrarian frameworks, our tracking secretariat balances verified transparency across all parameters.
+              </motion.p>
 
-              <p className="mt-8 max-w-2xl text-lg leading-8 text-zinc-300">
-                Whether you are a donor, development agency,
-                humanitarian partner, volunteer, or institutional collaborator,
-                GIHAD welcomes strategic partnerships focused on resilience,
-                recovery, and sustainable community transformation.
-              </p>
-
-              {/* CONTACT STRIP */}
-              <div className="mt-14 space-y-5">
-
+              {/* ACCESSIBLE CONTACT CARDS */}
+              <motion.div variants={fadeInUp} className="pt-4 space-y-3 max-w-lg">
                 {[
                   {
                     icon: Mail,
-                    title: "Email Communication",
+                    title: "Email Gateway",
                     value: "gfad3019@gmail.com",
                   },
                   {
                     icon: Phone,
-                    title: "Direct Coordination",
+                    title: "Direct Coordination Line",
                     value: "+211 922 522747",
                   },
                   {
                     icon: MapPin,
-                    title: "Headquarters",
+                    title: "Secretariat Headquarters",
                     value: "Tongpiny, Juba • South Sudan",
                   },
-                ].map((item, index) => {
+                ].map((item) => {
                   const Icon = item.icon;
-
                   return (
-                    <motion.div
+                    <div
                       key={item.title}
-                      initial={{ opacity: 0, x: -25 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.08 }}
-                      viewport={{ once: true }}
-                      className="group flex items-center gap-5 rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl transition-all duration-500 hover:border-emerald-500/20 hover:bg-white/[0.05]"
+                      className="flex items-center gap-4 rounded-xl border border-zinc-200 bg-[#FAF9F5] p-4 transition-colors hover:bg-white"
                     >
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/10">
-                        <Icon className="h-6 w-6 text-emerald-300" />
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#062F1D] text-white">
+                        <Icon className="h-4 w-4" />
                       </div>
-
                       <div>
-                        <p className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">
+                        <p className="text-[10px] font-mono font-bold tracking-wider text-zinc-500 uppercase">
                           {item.title}
                         </p>
-
-                        <p className="mt-2 text-base text-white">
+                        <p className="text-base font-bold text-[#062F1D] mt-0.5">
                           {item.value}
                         </p>
                       </div>
-                    </motion.div>
+                    </div>
                   );
                 })}
-
-              </div>
-
+              </motion.div>
             </motion.div>
 
-            {/* RIGHT FORM */}
+            {/* RIGHT COLUMN: HIGH-CONTRAST FORM PORTAL */}
             <motion.div
-              initial={{ opacity: 0, y: 35 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9 }}
-              className="relative lg:col-span-6"
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="lg:col-span-6"
             >
-
-              {/* OUTER GLOW */}
-              <div className="absolute -inset-6 rounded-[3rem] bg-gradient-to-br from-emerald-500/10 via-transparent to-transparent blur-3xl" />
-
-              {/* FORM CONTAINER */}
-              <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#111827]/90 p-8 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-2xl lg:p-10">
-
-                {/* TOP */}
-                <div className="flex items-start justify-between gap-6">
-
+              <div className="rounded-2xl border-2 border-zinc-300 bg-[#FAF9F5] p-8 shadow-sm">
+                
+                <div className="flex items-start justify-between gap-4 border-b border-zinc-200/80 pb-6">
                   <div>
-
-                    <span className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-400">
-                      Collaboration Portal
+                    <span className="text-[10px] font-mono font-bold tracking-widest text-emerald-800 uppercase">
+                      Secure Communications
                     </span>
-
-                    <h2 className="mt-5 text-4xl font-serif leading-tight tracking-tight text-white">
-                      Start A Conversation With Our Team.
+                    <h2 className="text-2xl font-bold tracking-tight text-[#062F1D] mt-1">
+                      Initiate System Dialogue
                     </h2>
-
                   </div>
-
-                  <div className="hidden h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 lg:flex">
-                    <Send className="h-6 w-6 text-emerald-400" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white border border-zinc-200 text-[#062F1D]">
+                    <Send className="h-4 w-4" />
                   </div>
-
                 </div>
 
-                {/* FORM */}
-                <form className="mt-12 space-y-7">
-
-                  {/* ROW 1 */}
-                  <div className="grid gap-6 md:grid-cols-2">
-
+                <form className="mt-6 space-y-4" onSubmit={(e) => e.preventDefault()}>
+                  <div className="grid gap-4 sm:grid-cols-2">
                     <div>
-                      <label className="mb-3 block text-sm font-medium text-zinc-300">
-                        Full Name
+                      <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-700">
+                        Full Identity
                       </label>
-
                       <input
                         type="text"
-                        placeholder="Your full name"
-                        className="h-14 w-full rounded-2xl border border-white/10 bg-white/[0.03] px-5 text-sm text-white placeholder:text-zinc-500 outline-none transition-all focus:border-emerald-500 focus:bg-white/[0.05]"
+                        placeholder="Full Name..."
+                        className="h-11 w-full rounded-xl border border-zinc-300 bg-white px-4 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none transition-all focus:border-emerald-700 focus:ring-1 focus:ring-emerald-700"
                       />
                     </div>
-
                     <div>
-                      <label className="mb-3 block text-sm font-medium text-zinc-300">
-                        Email Address
+                      <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-700">
+                        Secure Email
                       </label>
-
                       <input
                         type="email"
-                        placeholder="Your email address"
-                        className="h-14 w-full rounded-2xl border border-white/10 bg-white/[0.03] px-5 text-sm text-white placeholder:text-zinc-500 outline-none transition-all focus:border-emerald-500 focus:bg-white/[0.05]"
+                        placeholder="partner@institution.org"
+                        className="h-11 w-full rounded-xl border border-zinc-300 bg-white px-4 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none transition-all focus:border-emerald-700 focus:ring-1 focus:ring-emerald-700"
                       />
                     </div>
-
                   </div>
 
-                  {/* ROW 2 */}
-                  <div className="grid gap-6 md:grid-cols-2">
-
+                  <div className="grid gap-4 sm:grid-cols-2">
                     <div>
-                      <label className="mb-3 block text-sm font-medium text-zinc-300">
-                        Organization
+                      <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-700">
+                        Organization / Entity
                       </label>
-
                       <input
                         type="text"
-                        placeholder="Your organization or institution"
-                        className="h-14 w-full rounded-2xl border border-white/10 bg-white/[0.03] px-5 text-sm text-white placeholder:text-zinc-500 outline-none transition-all focus:border-emerald-500 focus:bg-white/[0.05]"
+                        placeholder="Multilateral Agency"
+                        className="h-11 w-full rounded-xl border border-zinc-300 bg-white px-4 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none transition-all focus:border-emerald-700 focus:ring-1 focus:ring-emerald-700"
                       />
                     </div>
-
                     <div>
-                      <label className="mb-3 block text-sm font-medium text-zinc-300">
-                        Subject
+                      <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-700">
+                        Subject Matrix
                       </label>
-
                       <input
                         type="text"
-                        placeholder="Partnership, support, or inquiry"
-                        className="h-14 w-full rounded-2xl border border-white/10 bg-white/[0.03] px-5 text-sm text-white placeholder:text-zinc-500 outline-none transition-all focus:border-emerald-500 focus:bg-white/[0.05]"
+                        placeholder="Resource Clearance Allocation"
+                        className="h-11 w-full rounded-xl border border-zinc-300 bg-white px-4 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none transition-all focus:border-emerald-700 focus:ring-1 focus:ring-emerald-700"
                       />
                     </div>
-
                   </div>
 
-                  {/* MESSAGE */}
                   <div>
-                    <label className="mb-3 block text-sm font-medium text-zinc-300">
-                      Message
+                    <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-700">
+                      Message Parameters
                     </label>
-
                     <textarea
-                      rows={7}
-                      placeholder="Tell us about your collaboration, initiative, partnership opportunity, or humanitarian inquiry..."
-                      className="w-full rounded-[2rem] border border-white/10 bg-white/[0.03] px-5 py-5 text-sm leading-8 text-white placeholder:text-zinc-500 outline-none transition-all focus:border-emerald-500 focus:bg-white/[0.05]"
+                      rows={4}
+                      placeholder="Specify requirements, funding deployment intents, or operational coordinates..."
+                      className="w-full rounded-xl border border-zinc-300 bg-white px-4 py-3 text-sm leading-relaxed text-zinc-900 placeholder:text-zinc-400 outline-none transition-all focus:border-emerald-700 focus:ring-1 focus:ring-emerald-700 resize-none"
                     />
                   </div>
 
-                  {/* BOTTOM */}
-                  <div className="flex flex-col gap-5 pt-2 lg:flex-row lg:items-center lg:justify-between">
-
-                    <div className="flex items-center gap-3 text-sm text-zinc-400">
-
-                      <Clock3 className="h-4 w-4 text-emerald-400" />
-
-                      <span>
-                        Average response time: 24–48 hours
-                      </span>
-
+                  <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-center gap-2 text-xs text-zinc-600 font-medium">
+                      <Clock3 className="h-4 w-4 text-emerald-800" />
+                      <span>Tracking response: 24–48 Hours</span>
                     </div>
 
-                    <motion.button
-                      whileHover={{
-                        y: -2,
-                      }}
-                      whileTap={{
-                        scale: 0.98,
-                      }}
-                      className="group inline-flex items-center justify-center gap-3 rounded-full bg-emerald-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-emerald-950/20 transition-all hover:bg-emerald-500"
+                    <button
+                      type="submit"
+                      className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[#062F1D] px-6 text-xs font-bold text-white shadow-sm hover:bg-emerald-900 transition-colors whitespace-nowrap"
                     >
-                      <span>Send Message</span>
-
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </motion.button>
-
+                      <span>Transmit Entry</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </button>
                   </div>
-
                 </form>
 
               </div>
-
             </motion.div>
-
           </div>
-
         </div>
-
       </section>
 
-      {/* ================= INSTITUTIONAL STRIP ================= */}
-      <section className="relative -mt-20 pb-28">
-
-        <div className="mx-auto max-w-7xl px-6 lg:px-12">
-
-          <div className="overflow-hidden rounded-[2.5rem] border border-zinc-200 bg-white shadow-[0_20px_80px_rgba(0,0,0,0.06)]">
-
-            <div className="grid lg:grid-cols-3">
-
-              {[
-                {
-                  title: "Operational Presence",
-                  text: "Active humanitarian operations across Upper Nile, Jonglei, Central Equatoria, Bahr El Ghazal, Abyei, and Pibor Administrative Area.",
-                },
-                {
-                  title: "Institutional Collaboration",
-                  text: "Supporting partnerships with NGOs, development agencies, humanitarian actors, local communities, and donor institutions.",
-                },
-                {
-                  title: "Community-Centered Action",
-                  text: "Focused on sustainable healthcare, food systems, WASH infrastructure, protection systems, and resilience recovery.",
-                },
-              ].map((item, index) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 25 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.08 }}
-                  viewport={{ once: true }}
-                  className={`p-10 lg:p-12 ${
-                    index !== 2
-                      ? "border-b border-zinc-200 lg:border-b-0 lg:border-r"
-                      : ""
-                  }`}
-                >
-
-                  <span className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-700">
-                    {item.title}
-                  </span>
-
-                  <p className="mt-6 text-lg leading-8 text-zinc-600">
+      {/* ================= GEOGRAPHIC REGULATORY GRID ================= */}
+      <section className="mt-16 px-6 lg:px-12">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-xs">
+          <div className="grid divide-y divide-zinc-200 lg:grid-cols-3 lg:divide-y-0 lg:divide-x">
+            {[
+              {
+                title: "Operational Frameworks",
+                text: "Full monitoring presence deployed across Upper Nile, Jonglei, Central Equatoria, Bahr El Ghazal, Abyei, and Pibor Administrative Area.",
+              },
+              {
+                title: "Compliance Verification",
+                text: "Aligning deep stakeholder workflows with international standards, domestic NGO regulations, and structured cluster rules.",
+              },
+              {
+                title: "Systemic Agribusiness & WASH",
+                text: "Directing foundational infrastructure development towards clean hydro-logistics and community asset resilience networks.",
+              },
+            ].map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+                className="p-8 md:p-10 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="h-4 w-4 text-emerald-800" />
+                    <span className="text-[11px] font-mono font-bold tracking-widest text-[#062F1D] uppercase">
+                      {item.title}
+                    </span>
+                  </div>
+                  <p className="mt-4 text-sm leading-relaxed text-zinc-600 font-medium">
                     {item.text}
                   </p>
-
-                </motion.div>
-              ))}
-
-            </div>
-
+                </div>
+              </motion.div>
+            ))}
           </div>
-
         </div>
-
       </section>
 
     </main>

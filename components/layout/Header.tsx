@@ -4,49 +4,30 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { Menu, X, ChevronRight, Phone, Mail, ArrowUpRight, Heart } from "lucide-react";
 
-import {
-  AnimatePresence,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-} from "framer-motion";
-
-import {
-  ArrowUpRight,
-  ChevronRight,
-  Mail,
-  Phone,
-} from "lucide-react";
-
+// Pruned layout directory to remove clutter and drop redundant projects route
 const navigation = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
   { name: "Programs", href: "/programs" },
-  { name: "Projects", href: "/projects" },
   { name: "Stories", href: "/stories" },
   { name: "Contact", href: "/contact" },
 ];
 
 export default function Header() {
   const pathname = usePathname();
-
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setIsScrolled(latest > 40);
+    setIsScrolled(latest > 20);
   });
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-
+    document.body.style.overflow = isOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
@@ -55,401 +36,232 @@ export default function Header() {
   return (
     <>
       {/* ================================================= */}
-      {/* TOP BAR */}
+      {/* TOP STRIP: Clean, Accessible Utility Bar          */}
       {/* ================================================= */}
-
       <AnimatePresence>
         {!isScrolled && (
           <motion.div
-            initial={{ y: -50, opacity: 0 }}
+            initial={{ y: -40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -50, opacity: 0 }}
-            transition={{
-              duration: 0.45,
-            }}
-            className="fixed inset-x-0 top-0 z-50 hidden border-b border-emerald-200/10 bg-[#0B2E1F]/95 backdrop-blur-2xl lg:block"
+            exit={{ y: -40, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="fixed inset-x-0 top-0 z-[60] hidden border-b border-zinc-200/60 bg-[#FAF9F5] lg:block"
           >
-
-            <div className="mx-auto flex h-11 max-w-7xl items-center justify-between px-6 lg:px-10">
-
-              {/* LEFT */}
-              <div className="flex items-center gap-6 text-sm text-emerald-50/80">
-
-                <div className="flex items-center gap-2">
-                  <Phone className="h-3.5 w-3.5 text-emerald-300" />
+            <div className="mx-auto flex h-11 max-w-7xl items-center justify-between px-6 lg:px-8">
+              <div className="flex items-center gap-6 text-xs font-medium text-zinc-600">
+                <a href="tel:+211920000000" className="flex items-center gap-2 transition hover:text-emerald-700">
+                  <Phone className="h-3.5 w-3.5 text-emerald-700" />
                   <span>+211 920 000 000</span>
-                </div>
-
-                <div className="h-4 w-px bg-white/10" />
-
-                <div className="flex items-center gap-2">
-                  <Mail className="h-3.5 w-3.5 text-emerald-300" />
+                </a>
+                <a href="mailto:info@gihad.org" className="flex items-center gap-2 transition hover:text-emerald-700">
+                  <Mail className="h-3.5 w-3.5 text-emerald-700" />
                   <span>info@gihad.org</span>
-                </div>
-
+                </a>
               </div>
 
-              {/* RIGHT */}
-              <div className="flex items-center gap-8">
-
-                <Link
-                  href="/get-involved"
-                  className="text-sm font-medium text-emerald-50/80 transition hover:text-white"
-                >
-                  Get Involved
-                </Link>
-
-                <Link
-                  href="/donate"
-                  className="text-sm font-medium text-emerald-50/80 transition hover:text-white"
-                >
-                  Support Our Mission
-                </Link>
-
+              <div className="flex items-center text-xs font-semibold text-zinc-600">
+                <span className="inline-flex items-center gap-1.5 font-medium text-zinc-500">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Official National NGO • South Sudan
+                </span>
               </div>
-
             </div>
-
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* ================================================= */}
-      {/* MAIN NAVBAR */}
+      {/* MAIN NAVIGATION BAR: Premium Light Canvas         */}
       {/* ================================================= */}
-
-      <motion.header
-        initial={{
-          y: -40,
-          opacity: 0,
-        }}
-        animate={{
-          y: 0,
-          opacity: 1,
-        }}
-        transition={{
-          duration: 0.7,
-        }}
-        className={`fixed inset-x-0 z-50 transition-all duration-500 ${
-          isScrolled ? "top-0" : "top-11"
+      <header
+        className={`fixed inset-x-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? "top-0 border-b border-zinc-200 bg-white/95 shadow-md backdrop-blur-md py-1"
+            : "top-0 lg:top-11 bg-white border-b border-zinc-100"
         }`}
       >
-
-        <div
-          className={`transition-all duration-500 ${
-            isScrolled
-              ? "border-b border-emerald-100/10 bg-[#0B2E1F]/92 backdrop-blur-2xl"
-              : "bg-transparent"
-          }`}
-        >
-
-          <div className="mx-auto flex h-[88px] max-w-7xl items-center justify-between px-5 lg:px-10">
-
-            {/* ================================================= */}
-            {/* LOGO */}
-            {/* ================================================= */}
-
-            <Link
-              href="/"
-              className="group flex shrink-0 items-center gap-3"
-            >
-
-              <motion.div
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-                className="relative h-14 w-14 overflow-hidden rounded-2xl border border-white/10 bg-white shadow-lg"
-              >
-
-                <Image
-                  src="/gihad-logo.jpg"
-                  alt="GIHAD"
-                  fill
-                  priority
-                  className="object-cover"
-                />
-
-              </motion.div>
-
-              <div>
-
-                <h2 className="text-[22px] font-semibold tracking-tight text-white lg:text-[24px]">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="flex h-20 items-center justify-between gap-4">
+            
+            {/* Identity Brand Group - Preserved Exactly from image_bd2e92.png */}
+            <Link href="/" className="flex items-center gap-3 shrink-0 group focus:outline-none">
+              <Image
+                src="/gihad-logo.png"
+                alt="GIHAD Logo"
+                width={52}
+                height={52}
+                priority
+                className="h-13 w-13 object-contain transition-transform duration-300 group-hover:scale-102"
+              />
+              <div className="flex flex-col">
+                <h1 className="text-xl font-black tracking-tight text-zinc-900 leading-none">
                   GIHAD
-                </h2>
-
-                <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.28em] text-emerald-300">
-                  Health & Agriculture
+                </h1>
+                <p className="mt-1.5 text-[9px] font-extrabold uppercase tracking-[0.18em] text-emerald-700 leading-none">
+                  Health & Agriculture Dev.
                 </p>
-
               </div>
-
             </Link>
 
-            {/* ================================================= */}
-            {/* DESKTOP NAV */}
-            {/* ================================================= */}
-
-            <nav className="hidden xl:flex">
-
-              <div className="flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 backdrop-blur-xl">
-
+            {/* Structured Navigation Links */}
+            <nav className="hidden xl:flex items-center">
+              <div className="flex items-center gap-8">
                 {navigation.map((item) => {
-                  const isActive = pathname === item.href;
-
+                  const active = pathname === item.href;
                   return (
                     <Link
                       key={item.name}
                       href={item.href}
-                      className={`rounded-full px-5 py-3 text-[15px] font-medium transition-all duration-300 ${
-                        isActive
-                          ? "bg-emerald-400 text-[#052A1A] shadow-lg"
-                          : "text-zinc-200 hover:bg-white/5 hover:text-white"
+                      className={`relative py-2 text-sm font-bold transition-colors duration-200 ${
+                        active ? "text-emerald-700" : "text-zinc-600 hover:text-zinc-900"
                       }`}
                     >
-                      {item.name}
+                      <span>{item.name}</span>
+                      {active && (
+                        <motion.span
+                          layoutId="active-line"
+                          className="absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-emerald-700"
+                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        />
+                      )}
                     </Link>
                   );
                 })}
-
               </div>
-
             </nav>
 
-            {/* ================================================= */}
-            {/* ACTIONS */}
-            {/* ================================================= */}
-
-            <div className="hidden items-center gap-4 xl:flex">
-
+            {/* Consolidated Single Premium CTA Matrix */}
+            <div className="hidden items-center gap-4 shrink-0 xl:flex">
               <Link
-                href="/get-involved"
-                className="group flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:border-emerald-300/30 hover:bg-white/[0.06]"
+                href="/contact"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[#062F1D] px-5 text-xs font-bold text-white hover:bg-emerald-900 transition-all shadow-sm group hover:scale-[1.01]"
               >
-                Get Involved
-
-                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                <Heart className="h-3.5 w-3.5 fill-emerald-400 stroke-emerald-400 group-hover:scale-110 transition-transform" />
+                <span>Support Our Mission</span>
+                <ArrowUpRight className="h-3.5 w-3.5 text-emerald-400/80" />
               </Link>
-
-              <Link
-                href="/donate"
-                className="rounded-full bg-emerald-400 px-7 py-3.5 text-sm font-bold text-[#062A1B] transition-all duration-300 hover:bg-emerald-300"
-              >
-                Donate Now
-              </Link>
-
             </div>
 
-            {/* ================================================= */}
-            {/* MOBILE BUTTON */}
-            {/* ================================================= */}
-
+            {/* Premium Mobile Menu Toggle Hamburger */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="relative z-[100] flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-white backdrop-blur-xl xl:hidden"
+              aria-label="Toggle Navigation Panel"
+              className="flex h-11 w-11 items-center justify-center rounded-xl text-zinc-800 border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 transition-colors focus:outline-none xl:hidden"
             >
-
-              <div className="relative flex h-5 w-5 items-center justify-center">
-
-                <motion.span
-                  animate={{
-                    rotate: isOpen ? 45 : 0,
-                    y: isOpen ? 0 : -6,
-                  }}
-                  className="absolute h-[2px] w-5 rounded-full bg-white"
-                />
-
-                <motion.span
-                  animate={{
-                    opacity: isOpen ? 0 : 1,
-                  }}
-                  className="absolute h-[2px] w-5 rounded-full bg-white"
-                />
-
-                <motion.span
-                  animate={{
-                    rotate: isOpen ? -45 : 0,
-                    y: isOpen ? 0 : 6,
-                  }}
-                  className="absolute h-[2px] w-5 rounded-full bg-white"
-                />
-
-              </div>
-
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
-
           </div>
-
         </div>
-
-      </motion.header>
+      </header>
 
       {/* ================================================= */}
-      {/* MOBILE MENU */}
+      {/* MOBILE DRAWER: UNICEF Style High-Contrast Layout  */}
       {/* ================================================= */}
-
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* OVERLAY */}
-
+            {/* Backdrop Blur Mask */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-md xl:hidden"
+              className="fixed inset-0 z-[70] bg-zinc-900/30 backdrop-blur-md xl:hidden"
             />
 
-            {/* PANEL */}
-
+            {/* Content Drawer Canvas */}
             <motion.div
-              initial={{
-                x: "100%",
-              }}
-              animate={{
-                x: 0,
-              }}
-              exit={{
-                x: "100%",
-              }}
-              transition={{
-                type: "spring",
-                damping: 28,
-                stiffness: 260,
-              }}
-              className="fixed right-0 top-0 z-[80] flex h-screen w-[82%] flex-col overflow-hidden border-l border-white/10 bg-[#071F15] shadow-2xl xl:hidden"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 360, damping: 36 }}
+              className="fixed right-0 bottom-0 top-0 z-[80] flex h-full w-full max-w-sm flex-col border-l border-zinc-200 bg-white"
             >
-
-              {/* TOP */}
-
-              <div className="border-b border-white/10 px-6 pb-6 pt-8">
-
-                <div className="flex items-center gap-4">
-
-                  <div className="relative h-14 w-14 overflow-hidden rounded-2xl bg-white">
-
+              {/* Drawer Top Header Identity Group */}
+              <div className="border-b border-zinc-100 p-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
                     <Image
-                      src="/gihad-logo.jpg"
-                      alt="GIHAD"
-                      fill
-                      className="object-cover"
+                      src="/gihad-logo.png"
+                      alt="GIHAD Logo"
+                      width={44}
+                      height={44}
+                      className="object-contain"
                     />
-
+                    <div>
+                      <h3 className="text-lg font-black text-zinc-900 leading-none">GIHAD</h3>
+                      <p className="mt-1.5 text-[8px] font-extrabold uppercase tracking-[0.15em] text-emerald-700 leading-none">
+                        Health & Agriculture
+                      </p>
+                    </div>
                   </div>
-
-                  <div>
-
-                    <h2 className="text-2xl font-semibold text-white">
-                      GIHAD
-                    </h2>
-
-                    <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.28em] text-emerald-300">
-                      Health & Agriculture
-                    </p>
-
-                  </div>
-
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-200 text-zinc-500 hover:text-zinc-900 focus:outline-none"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
                 </div>
-
               </div>
 
-              {/* NAVIGATION */}
-
-              <div className="flex-1 overflow-y-auto px-5 py-6">
-
-                <div className="space-y-2">
-
-                  {navigation.map((item, index) => {
-                    const isActive = pathname === item.href;
-
+              {/* Navigation Items (Clean List Architecture) */}
+              <div className="flex-1 overflow-y-auto px-4 py-6">
+                <nav className="space-y-1">
+                  {navigation.map((item) => {
+                    const active = pathname === item.href;
                     return (
-                      <motion.div
+                      <Link
                         key={item.name}
-                        initial={{
-                          opacity: 0,
-                          x: 30,
-                        }}
-                        animate={{
-                          opacity: 1,
-                          x: 0,
-                        }}
-                        transition={{
-                          delay: index * 0.05,
-                        }}
+                        href={item.href}
+                        onClick={() => setIsOpen(false)}
+                        className={`flex items-center justify-between rounded-xl px-4 py-3.5 text-sm font-bold transition-all ${
+                          active
+                            ? "bg-emerald-50 text-emerald-800"
+                            : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900"
+                        }`}
                       >
-
-                        <Link
-                          href={item.href}
-                          onClick={() => setIsOpen(false)}
-                          className={`group flex items-center justify-between rounded-2xl px-5 py-4 transition-all duration-300 ${
-                            isActive
-                              ? "bg-emerald-400 text-[#062A1B]"
-                              : "text-zinc-200 hover:bg-white/[0.04] hover:text-white"
-                          }`}
-                        >
-
-                          <span className="text-[16px] font-medium">
-                            {item.name}
-                          </span>
-
-                          <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-
-                        </Link>
-
-                      </motion.div>
+                        <span>{item.name}</span>
+                        <ChevronRight className={`h-4 w-4 ${active ? "text-emerald-700" : "text-zinc-400"}`} />
+                      </Link>
                     );
                   })}
+                </nav>
 
-                </div>
-
-                {/* CTA */}
-
-                <div className="mt-10 rounded-[2rem] border border-white/10 bg-gradient-to-br from-emerald-400/10 to-white/[0.03] p-6">
-
-                  <div className="inline-flex rounded-full bg-emerald-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
+                {/* Info Card Block */}
+                <div className="mt-8 rounded-2xl border border-zinc-200 bg-[#FAF9F5] p-5 text-zinc-900">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-emerald-800 font-mono">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                     Humanitarian Action
-                  </div>
-
-                  <h3 className="mt-5 text-3xl font-semibold leading-tight text-white">
-                    Together we can restore hope
+                  </span>
+                  <h3 className="mt-3 text-xs font-semibold text-zinc-600 leading-relaxed">
+                    Nurturing strategic health and agricultural workflows for immediate life-saving and resilience deployment across local communities.
                   </h3>
-
-                  <p className="mt-4 text-sm leading-7 text-zinc-400">
-                    Support healthcare outreach, food systems,
-                    agricultural resilience, and vulnerable communities
-                    across South Sudan.
-                  </p>
-
-                  <Link
-                    href="/donate"
-                    className="mt-8 flex items-center justify-center rounded-full bg-emerald-400 px-6 py-4 text-sm font-bold text-[#062A1B] transition hover:bg-emerald-300"
-                  >
-                    Donate Now
-                  </Link>
-
                 </div>
-
               </div>
 
-              {/* FOOTER */}
+              {/* Drawer Bottom Contacts & Main CTA */}
+              <div className="border-t border-zinc-100 bg-zinc-50/80 px-6 py-6 space-y-4">
+                <Link
+                  href="/contact"
+                  onClick={() => setIsOpen(false)}
+                  className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#062F1D] px-4 text-xs font-bold text-white hover:bg-emerald-900 transition-colors shadow-sm"
+                >
+                  <Heart className="h-3.5 w-3.5 fill-emerald-400 stroke-emerald-400" />
+                  <span>Support Our Mission</span>
+                  <ArrowUpRight className="h-3.5 w-3.5 ml-auto text-emerald-400/80" />
+                </Link>
 
-              <div className="border-t border-white/10 p-5">
-
-                <div className="space-y-3 text-sm text-zinc-400">
-
-                  <div className="flex items-center gap-3">
-                    <Phone className="h-4 w-4 text-emerald-300" />
-                    +211 920 000 000
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <Mail className="h-4 w-4 text-emerald-300" />
-                    info@gihad.org
-                  </div>
-
+                <div className="space-y-2.5 text-xs font-semibold text-zinc-500 font-mono pt-2">
+                  <a href="tel:+211920000000" className="flex items-center gap-3 hover:text-emerald-700">
+                    <Phone className="h-4 w-4 text-emerald-700" />
+                    <span>+211 920 000 000</span>
+                  </a>
+                  <a href="mailto:info@gihad.org" className="flex items-center gap-3 hover:text-emerald-700">
+                    <Mail className="h-4 w-4 text-emerald-700" />
+                    <span>info@gihad.org</span>
+                  </a>
                 </div>
-
               </div>
-
             </motion.div>
           </>
         )}
